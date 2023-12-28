@@ -1,5 +1,6 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
+import store from '@/views/Store.vue';
 
 const routes = [
   {
@@ -14,6 +15,17 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () => import('@/views/Home.vue'),
       },
+      {
+        path: '/store',
+        name: 'Store',
+        component: () => store,
+      },
+      {
+        path: '/settings',
+        name: 'Settings',
+        component: () => import('@/views/Settings.vue'),
+      }
+
     ],
   },
 ]
