@@ -1,6 +1,5 @@
 // Composables
 import { createRouter, createWebHistory } from 'vue-router'
-import store from '@/views/Store.vue';
 
 const routes = [
   {
@@ -18,7 +17,7 @@ const routes = [
       {
         path: '/store',
         name: 'Store',
-        component: () => store,
+        component: () => import('@/views/Store.vue'),
       },
       {
         path: '/settings',

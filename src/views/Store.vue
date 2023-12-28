@@ -67,23 +67,17 @@
 
     const foods = reactive<Food[]>([]);
 
-    onMounted(() => {
-        let arr: Promise<void>[] = [];
-        for (let i = 0; i < 30; i++) {
-            arr.push(fetchFoods());
-        }
-        
-    });
     
-
+    
     const fetchFoods = async () => {
         const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
         const data = await response.json()
-            .then(data => data)
-            .catch(err => fetchFoods());
+        .then(data => data)
+        .catch(err => fetchFoods());
         foods.push(data as Food);
+        return response;
     };
-
+    
     const getIngredients = (food: any): string[] => {
         const ingredients: string[] = [];
         for (let i = 1; i <= 20; i++) {
@@ -94,8 +88,16 @@
                 break;
             }
         }
-
+        
         return ingredients;
     }
 
+    onMounted(() => {
+        let arr: Promise<Response>[] = [];
+        for (let i = 0; i < 30; i++) {
+            arr.push(fetchFoods());
+        }
+        Promise.all(arr).then().catch(err => console.log(err));
+    });
+    
 </script>
